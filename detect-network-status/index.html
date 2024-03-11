@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUNO_OKYO</title>
+</head>
+
+<body>
+    <h1>Demo: nhận diện kết nối mạng</h1>
+
+    <p>Bạn đang: <span id="status">...</span></p>
+
+    <script>
+        const status = document.getElementById('status')
+
+        status.textContent = navigator.onLine ? 'Online' : 'Offline'
+
+        window.addEventListener('offline', e => {
+            status.textContent = 'Offline'
+        })
+
+        window.addEventListener('online', e => {
+            status.textContent = 'Online'
+        })
+    </script>
+</body>
+
+</html>
