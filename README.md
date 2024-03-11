@@ -1,6 +1,9 @@
 # Demo code for my videos
 
-## Follow me on:
+## Introduction
+This repository contains the source code for my videos. You can find the video link in the description (README.md) of each folder.
+
+## Follow me to get more updates
 - [YouTube](https://www.youtube.com/channel/UCEETpUrNm5qI-LENbBON2Gw?sub_confirmation=1)
 - [TikTok](https://www.tiktok.com/@juno_okyo)
 - [Facebook](https://www.facebook.com/J2TEAM.ManhTuan/)
