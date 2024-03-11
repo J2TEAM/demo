@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <title>JUNO_OKYO</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #1319cb;
+        }
+
+        @media (prefers-color-scheme:dark) {
+            body {
+                background-color: rgb(37, 36, 36);
+                color: #fff;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Demo: Nhận diện theme hệ thống</h1>
+
+    <p>Theme hiện tại: <span id="result">...</span></p>
+
+    <script>
+        const detector = window.matchMedia('(prefers-color-scheme:dark)')
+        const result = document.getElementById('result')
+
+        const setResult = (isDark) => {
+            result.textContent = isDark ? 'Dark' : 'Light'
+        }
+
+        setResult(detector.matches)
+
+        detector.addEventListener('change', (e) => {
+            setResult(e.matches)
+        })
+    </script>
+</body>
+
+</html>

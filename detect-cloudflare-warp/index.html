@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JUNO_OKYO</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <h1 class="text-3xl font-bold mb-4">Check if you're using CloudFlare Warp</h1>
+    <div class="w-full max-w-md">
+      <div class="bg-white p-6 rounded-md shadow-md">
+        <h2 class="text-xl font-bold mb-2">Result:</h2>
+        <p class="text-gray-600 dark:text-gray-300">
+          You are <span class="font-bold" id="no-warp">not</span> using CloudFlare Warp.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    fetch('https://cloudflare.com/cdn-cgi/trace')
+      .then(r => r.text())
+      .then(text => {
+        if (text.includes('warp=on')) {
+          document.getElementById('no-warp').style.display = 'none'
+        }
+      })
+  </script>
+</body>
+
+</html>

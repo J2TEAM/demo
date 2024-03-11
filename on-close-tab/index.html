@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUNO_OKYO</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1.5.11/css/pico.min.css">
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo nhận diện rời trang</h1>
+
+        <form action="">
+            <label for="message">Lời nhắn</label>
+            <textarea name="message" id="message" rows="3" placeholder="Nội dung..."></textarea>
+        </form>
+    </main>
+
+    <script>
+        const message = document.getElementById('message')
+
+        window.addEventListener('beforeunload', e => {
+            if (message.value !== '') {
+                e.preventDefault()
+            }
+        })
+    </script>
+</body>
+
+</html>

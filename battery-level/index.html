@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JUNO_OKYO</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="flex h-screen flex-col items-center justify-center p-10">
+    <h1 class="mb-8 text-3xl font-bold">Battery Status</h1>
+    <div class="relative h-4 w-96 rounded bg-gray-300">
+      <div class="absolute left-0 h-4 rounded bg-green-500" id="batteryProgress"></div>
+    </div>
+    <p class="mt-4 text-lg font-semibold"><span id="batteryLevel">0</span>% Remaining</p>
+    <div class="mt-8 flex items-center space-x-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="h-6 w-6 text-green-500">
+        <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+        <line x1="12" x2="12" y1="2" y2="12"></line>
+      </svg>
+      <p class="text-lg font-medium" id="chargingStatus">unknown</p>
+    </div>
+  </div>
+
+  <script>
+    // demo by JUNO_OKYO
+    navigator.getBattery()
+      .then(battery => {
+        const progress = document.getElementById('batteryProgress')
+        const status = document.getElementById('chargingStatus')
+        const level = document.getElementById('batteryLevel')
+
+        function updateStatus() {
+          const betteryLevel = battery.level * 100
+          progress.style.width = betteryLevel + '%'
+          level.textContent = betteryLevel
+          status.textContent = battery.charging ? 'Charging' : 'Not charging'
+        }
+
+        updateStatus()
+
+        battery.addEventListener('levelchange', updateStatus)
+        battery.addEventListener('chargingchange', updateStatus)
+      })
+  </script>
+</body>
+
+</html>

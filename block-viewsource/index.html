@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUNO_OKYO</title>
+
+    <style>
+        body {
+            background-color: rgb(22, 101, 113);
+            color: #ffffff;
+            font-family: monospace;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Trang web này đã được bảo vệ</h1>
+    <h2>Bạn không thể xem mã nguồn trang này.</h2>
+
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault())
+
+        document.onkeydown = function (e) {
+            if (e.ctrlKey &&
+                (e.keyCode === 85)) {
+                return false
+            }
+
+            if ((e.ctrlKey && e.shiftKey) &&
+                (e.keyCode === 73)) {
+                return false
+            }
+
+            if (event.keyCode === 123) {
+                return false
+            }
+        }
+    </script>
+</body>
+
+</html>

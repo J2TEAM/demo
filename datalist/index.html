@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUNO_OKYO</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1.5.11/css/pico.min.css">
+    <style>
+        #result {
+            color: rgb(94, 255, 137);
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo &lt;datalist&gt; tag</h1>
+
+        <form action="#" method="post">
+            <label for="lang">
+                Chọn ngôn ngữ lập trình ưa thích của bạn:
+            </label>
+
+            <input type="text" id="lang" name="lang" list="items" placeholder="Nhập vào đây..." autofocus required autocomplete="off" />
+            <datalist id="items">
+                <option value="Objective C">Objective C</option>
+                <option value="C++">C++</option>
+                <option value="C#">C#</option>
+                <option value="Cobol">Cobol</option>
+                <option value="Go">Go</option>
+                <option value="Java">Java</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Python">Python</option>
+                <option value="PHP">PHP</option>
+                <option value="Perl">Perl</option>
+                <option value="Rust">Rust</option>
+                <option value="Swift">Swift</option>
+            </datalist>
+
+            <button type="submit">Lưu lại</button>
+        </form>
+    </main>
+
+    <script>
+        const form = document.querySelector('form')
+        form.addEventListener('submit', (e) => {
+            e.preventDefault()
+        })
+    </script>
+</body>
+
+</html>

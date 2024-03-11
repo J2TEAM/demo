@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUNO_OKYO</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1.5.11/css/pico.min.css">
+    <style>
+        #result {
+            color: rgb(94, 255, 137);
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo nhận diện IDM</h1>
+
+        <p>Trạng thái: <span id="result">...</span></p>
+
+        <video src="J2TEAM.mp4" loop width="600" height="400" controls hidden></video>
+    </main>
+
+    <script>
+        // demo by JUNO_OKYO
+        const video = document.querySelector('video')
+        const result = document.getElementById('result')
+
+        setTimeout(() => {
+            const txt = video.hasAttribute('__idm_id__') ? 'Có' : 'Không'
+            result.textContent = `${txt} sử dụng IDM`
+        }, 100)
+    </script>
+</body>
+
+</html>

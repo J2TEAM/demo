@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUNO_OKYO</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1.5.11/css/pico.min.css">
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo vô hiệu copy</h1>
+
+        <form action="#">
+            <textarea id="test" rows="3" autofocus>Hãy thử sao chép đoạn văn bản này!</textarea>
+        </form>
+    </main>
+
+    <script>
+        function disableDefault(event) {
+            event.preventDefault()
+        }
+
+        document.addEventListener('contextmenu', disableDefault)
+        document.addEventListener('keydown', event => {
+            if (event.ctrlKey && event.key === 'c') {
+                event.preventDefault()
+            }
+        })
+        document.addEventListener('selectstart', disableDefault)
+        document.addEventListener('dragstart', disableDefault)
+    </script>
+</body>
+
+</html>

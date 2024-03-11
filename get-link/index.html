@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUNO_OKYO</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1.5.11/css/pico.min.css">
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo Get link</h1>
+
+        <form action="#" method="post">
+            <label for="url">Link</label>
+            <input type="url" id="url" name="url" value="https://example.com/file/something" autofocus required>
+
+            <button type="submit" id="btn">Download</button>
+        </form>
+
+        <div id="result"></div>
+    </main>
+
+    <script>
+        const form = document.querySelector('form')
+        const result = document.getElementById('result')
+        const url = document.getElementById('url')
+        const btn = document.getElementById('btn')
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            result.textContent = ''
+            btn.disabled = true
+
+            const res = await fetch(`get.php?url=${encodeURIComponent(url.value)}`)
+            const data = await res.json()
+
+            if (data) {
+                result.textContent = data.url
+            } else {
+                result.textContent = 'Error: Please try again!'
+            }
+
+            btn.disabled = false
+        })
+    </script>
+</body>
+
+</html>

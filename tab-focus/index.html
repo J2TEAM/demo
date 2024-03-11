@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUNO_OKYO</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1.5.11/css/pico.min.css">
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo nhận diện trạng thái tab</h1>
+        <video src="J2TEAM.mp4" loop width="600" height="400" controls></video>
+    </main>
+
+    <script>
+        const video = document.querySelector('video')
+
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                video.pause()
+            } else {
+                video.play()
+            }
+        })
+    </script>
+</body>
+
+</html>

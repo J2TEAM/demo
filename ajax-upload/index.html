@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUNO_OKYO</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1.5.11/css/pico.min.css">
+    <style>
+        #progressBarContainer {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 3px;
+        }
+
+        #progressBar {
+            height: 30px;
+            background-color: #4CAF50;
+            border-radius: 3px;
+            width: 0%;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Upload & hiển thị tiến trình</h1>
+
+        <form id="uploadForm">
+            <input type="file" id="fileInput" name="file">
+            <button type="submit" id="submitBtn">Upload</button>
+        </form>
+
+        <div id="progressBarContainer" style="display: none;">
+            <div id="progressBar"></div>
+        </div>
+    </main>
+
+    <script>
+        // demo by JUNO_OKYO
+        const progressBarContainer = document.getElementById('progressBarContainer')
+        const progressBar = document.getElementById('progressBar')
+        const form = document.getElementById('uploadForm')
+        const btn = document.getElementById('submitBtn')
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault()
+
+            const fileInput = document.getElementById('fileInput')
+            const formData = new FormData()
+            formData.append('file', fileInput.files[0])
+
+            const xhr = new XMLHttpRequest()
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    form.reset()
+                    btn.disabled = false
+                }
+            }
+
+            xhr.upload.addEventListener('progress', (event) => {
+                if (event.lengthComputable) {
+                    const percent = (event.loaded / event.total) * 100
+                    progressBar.style.width = percent + '%'
+                }
+            })
+
+            btn.disabled = true
+
+            xhr.open('POST', 'upload.php', true)
+            xhr.send(formData)
+
+            progressBarContainer.style.display = 'block'
+        })
+    </script>
+</body>
+
+</html>
