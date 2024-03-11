@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <title>JUNO_OKYO</title>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Demo: Infinite scroll</h1>
+
+      <p>
+        This is a demo of infinite scroll. Scroll down to see more items being
+        loaded.
+      </p>
+
+      <ul id="data">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+        <li>Item 6</li>
+        <li>Item 7</li>
+        <li>Item 8</li>
+        <li>Item 9</li>
+        <li>Item 10</li>
+        <li>Item 11</li>
+        <li>Item 12</li>
+        <li>Item 13</li>
+        <li>Item 14</li>
+        <li>Item 15</li>
+      </ul>
+    </main>
+
+    <script>
+      // demo by JUNO_OKYO
+      const items = document.getElementById('data')
+      let nextItem = 16
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+          for (let i = 0; i < 5; i++) {
+            const li = document.createElement('li')
+            li.textContent = `Item ${nextItem++}`
+            items.appendChild(li)
+          }
+
+          // load data from API
+        }
+      })
+    </script>
+  </body>
+</html>
