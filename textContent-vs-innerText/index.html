@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <title>JUNO_OKYO</title>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Demo: textContent vs innerText</h1>
+
+      <div id="demo">
+        <p>
+          <span>xin chào</span>
+          <span style="display: none;">các bạn</span>
+        </p>
+
+        <script>//console.log('Can you see me?')</script>
+        <style>#demo p {color: #22f650}</style>
+      </div>
+    </main>
+
+    <script>
+      // demo by JUNO_OKYO
+      const demo = document.getElementById('demo')
+      console.log(demo.innerText)
+      console.log(demo.textContent)
+    </script>
+  </body>
+</html>
