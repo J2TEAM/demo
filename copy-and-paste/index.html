@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css" />
+    <title>JUNO_OKYO</title>
+    <style>
+        #alert {
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.3rem;
+        }
+
+        .alert-success {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo: Copy & Paste</h1>
+
+        <form action="#" method="post">
+            <label for="copy">Copy</label>
+            <textarea id="copy" name="copy">Xin chào, mình là Tuấn. Nickname của mình là JUNO_OKYO.</textarea>
+            <button type="button" id="btnCopy">Copy</button>
+
+            <hr>
+
+            <label for="paste">Paste</label>
+            <textarea id="paste" name="paste"></textarea>
+
+            <button type="button" id="btnPaste">Paste</button>
+        </form>
+
+        <div id="alert" class="alert alert-success" hidden></div>
+    </main>
+
+    <script>
+        // demo by JUNO_OKYO
+        const btnCopy = document.getElementById('btnCopy')
+        const btnPaste = document.getElementById('btnPaste')
+        const alert = document.getElementById('alert')
+        const textareaCopy = document.getElementById('copy')
+        const textareaPaste = document.getElementById('paste')
+
+        function showAlert(message) {
+            alert.textContent = message
+            alert.hidden = false
+        }
+
+        btnCopy.addEventListener('click', async () => {
+            if (!textareaCopy.value) {
+                showAlert('Nothing to copy.')
+                return
+            }
+
+            try {
+                await navigator.clipboard.writeText(textareaCopy.value)
+                showAlert('Text copied.')
+            } catch (err) {
+                console.error(err.message)
+            }
+        })
+
+        btnPaste.addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText()
+
+                if (!text.length) {
+                    showAlert('Nothing to paste.')
+                    return
+                }
+
+                textareaPaste.value += text
+                showAlert('Text pasted.')
+            } catch (err) {
+                textareaPaste.focus()
+                document.execCommand('paste')
+                showAlert('Text pasted.')
+            }
+        })
+    </script>
+</body>
+
+</html>
