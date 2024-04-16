@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css" />
+    <title>JUNO_OKYO</title>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo: Detect Caps Lock</h1>
+
+        <form action="#" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Username" autofocus required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+
+            <p id="capslock-warning" hidden>⚠ Caps Lock is on.</p>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <script>
+            // Demo by JUNO_OKYO
+            const passwordInput = document.getElementById('password')
+            const warning = document.getElementById('capslock-warning')
+
+            passwordInput.addEventListener('keyup', (event) => {
+                if (event.getModifierState('CapsLock')) {
+                    warning.hidden = false
+                } else {
+                    warning.hidden = true
+                }
+            })
+        </script>
+    </main>
+</body>
+
+</html>
