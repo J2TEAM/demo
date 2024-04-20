@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUNO_OKYO</title>
+    <style>
+        body {
+            background-color: #f3f3f3;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            width: 600px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
+</head>
+
+<body>
+    <main>
+        <form action="#" method="post">
+            <label for="name">Tên:</label>
+            <input data-intro="Điền tên vô đây nha" type="text" id="name" name="name" placeholder="Name" required autofocus>
+
+            <label for="email">Email:</label>
+            <input data-intro="Tiếp theo là email" type="email" id="email" name="email" placeholder="Email" required>
+
+            <label for="message">Tin nhắn:</label>
+            <textarea data-intro="Nội dung muốn nhắn nhủ" id="message" name="message" placeholder="Message" required></textarea>
+
+            <button data-intro="Cuối cùng nhấn nút này để gửi!" type="submit">Gửi</button>
+        </form>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
+    <script>introJs().start()</script>
+</body>
+
+</html>
