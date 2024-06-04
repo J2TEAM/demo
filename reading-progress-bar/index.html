@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css" />
+    <title>JUNO_OKYO</title>
+    <style>
+        #progress-container {
+            position: fixed;
+            width: 100%;
+            height: 5px;
+            top: 0;
+            left: 0;
+            background-color: #313131;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #4caf50;
+            transition: width 0.1s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+    <main class="container" id="content">
+        <nav>
+            <ul>
+                <li><strong>JUNO_OKYO's Blog</strong></li>
+            </ul>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <h1>Đây là một bài viết rất dài</h1>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, orci ut ultricies vestibulum, arcu
+            urna ultricies eros, in luctus elit arcu nec orci. Nullam dictum magna vitae odio fermentum, et ultricies
+            erat dignissim. In euismod, justo eget tincidunt interdum, libero risus vehicula purus, at tempor libero
+            tortor vitae turpis.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, orci ut ultricies vestibulum, arcu
+            urna ultricies eros, in luctus elit arcu nec orci. Nullam dictum magna vitae odio fermentum, et ultricies
+            erat dignissim. In euismod, justo eget tincidunt interdum, libero risus vehicula purus, at tempor libero
+            tortor vitae turpis.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, orci ut ultricies vestibulum, arcu
+            urna ultricies eros, in luctus elit arcu nec orci. Nullam dictum magna vitae odio fermentum, et ultricies
+            erat dignissim. In euismod, justo eget tincidunt interdum, libero risus vehicula purus, at tempor libero
+            tortor vitae turpis.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, orci ut ultricies vestibulum, arcu
+            urna ultricies eros, in luctus elit arcu nec orci. Nullam dictum magna vitae odio fermentum, et ultricies
+            erat dignissim. In euismod, justo eget tincidunt interdum, libero risus vehicula purus, at tempor libero
+            tortor vitae turpis.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, orci ut ultricies vestibulum, arcu
+            urna ultricies eros, in luctus elit arcu nec orci. Nullam dictum magna vitae odio fermentum, et ultricies
+            erat dignissim. In euismod, justo eget tincidunt interdum, libero risus vehicula purus, at tempor libero
+            tortor vitae turpis.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, orci ut ultricies vestibulum, arcu
+            urna ultricies eros, in luctus elit arcu nec orci. Nullam dictum magna vitae odio fermentum, et ultricies
+            erat dignissim. In euismod, justo eget tincidunt interdum, libero risus vehicula purus, at tempor libero
+            tortor vitae turpis.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, orci ut ultricies vestibulum, arcu
+            urna ultricies eros, in luctus elit arcu nec orci. Nullam dictum magna vitae odio fermentum, et ultricies
+            erat dignissim. In euismod, justo eget tincidunt interdum, libero risus vehicula purus, at tempor libero
+            tortor vitae turpis.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, orci ut ultricies vestibulum, arcu
+            urna ultricies eros, in luctus elit arcu nec orci. Nullam dictum magna vitae odio fermentum, et ultricies
+            erat dignissim. In euismod, justo eget tincidunt interdum, libero risus vehicula purus, at tempor libero
+            tortor vitae turpis.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, orci ut ultricies vestibulum, arcu
+            urna ultricies eros, in luctus elit arcu nec orci. Nullam dictum magna vitae odio fermentum, et ultricies
+            erat dignissim. In euismod, justo eget tincidunt interdum, libero risus vehicula purus, at tempor libero
+            tortor vitae turpis.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, orci ut ultricies vestibulum, arcu
+            urna ultricies eros, in luctus elit arcu nec orci. Nullam dictum magna vitae odio fermentum, et ultricies
+            erat dignissim. In euismod, justo eget tincidunt interdum, libero risus vehicula purus, at tempor libero
+            tortor vitae turpis.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, orci ut ultricies vestibulum, arcu
+            urna ultricies eros, in luctus elit arcu nec orci. Nullam dictum magna vitae odio fermentum, et ultricies
+            erat dignissim. In euismod, justo eget tincidunt interdum, libero risus vehicula purus, at tempor libero
+            tortor vitae turpis.</p>
+    </main>
+    <script>
+        const content = document.getElementById('content')
+        const progressBar = document.getElementById('progress-bar')
+
+        document.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop
+            const scrollHeight = content.scrollHeight - window.innerHeight
+            const percentage = (scrollTop / scrollHeight) * 100
+            progressBar.style.width = percentage + '%'
+        })
+    </script>
+</body>
+
+</html>
