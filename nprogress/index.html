@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css" />
+    <title>JUNO_OKYO</title>
+    <link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo: Ajax - Loading Progress Bar</h1>
+
+        <button id="btn">Load Data</button>
+
+        <article id="result" style="margin-top: 10px;">...</article>
+    </main>
+
+    <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
+    <script>
+        const btn = document.getElementById('btn')
+        const result = document.getElementById('result')
+
+        btn.addEventListener('click', async () => {
+            NProgress.start()
+            btn.setAttribute('aria-busy', true)
+            result.textContent = 'Loading...'
+
+            const res = await fetch('https://jsonplaceholder.typicode.com/posts/1')
+            const { body } = await res.json()
+
+            result.textContent = body
+            btn.setAttribute('aria-busy', false)
+            NProgress.done()
+        })
+    </script>
+</body>
+
+</html>
