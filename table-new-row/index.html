@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css" />
+    <title>JUNO_OKYO</title>
+    <style>
+        @keyframes highlight {
+            from {
+                background-color: rgb(177, 177, 46);
+            }
+            to {
+                background-color: #13171f;
+            }
+        }
+
+        .highlight {
+            animation: highlight 2s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Hiệu ứng hàng mới thêm vào</h1>
+
+        <form id="dataForm">
+            <label for="name">Tên:</label>
+            <input type="text" id="name" name="name" required autofocus>
+            <label for="age">Tuổi:</label>
+            <input type="number" id="age" name="age" required>
+            <button type="submit">Thêm dữ liệu</button>
+        </form>
+
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </main>
+
+    <script>
+        const name = document.getElementById('name')
+        const age = document.getElementById('age')
+        const form = document.getElementById('dataForm')
+        const tableBody = document.getElementById('tableBody')
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault()
+
+            const newRow = tableBody.insertRow()
+            const nameCell = newRow.insertCell(0)
+            const ageCell = newRow.insertCell(1)
+            nameCell.textContent = name.value
+            ageCell.textContent = age.value
+
+            nameCell.classList.add('highlight')
+            ageCell.classList.add('highlight')
+
+            form.reset()
+            name.focus()
+        })
+    </script>
+</body>
+
+</html>
