@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css" />
+    <title>JUNO_OKYO</title>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Video Analytics</h1>
+
+        <form action="#" method="post">
+            <label for="copy">Video URL:</label>
+            <input type="url" name="video_url" id="video_url" pattern="^https?:\/\/(?:www\.)?tiktok\.com\/@[\w.]+\/video\/\d+$" placeholder="https://www.tiktok.com/@juno_okyo/video/7293188789445381382" autofocus required>
+
+            <button type="submit">Start</button>
+        </form>
+    </main>
+
+    <script>
+        // demo by JUNO_OKYO
+        const videoUrl = document.getElementById('video_url')
+
+        videoUrl.addEventListener('input', () => {
+            if (videoUrl.validity.patternMismatch) {
+                videoUrl.setCustomValidity('Please enter a valid TikTok video URL.\nExample: https://www.tiktok.com/@juno_okyo/video/7293188789445381382')
+            } else {
+                videoUrl.setCustomValidity('')
+            }
+        })
+    </script>
+</body>
+
+</html>
