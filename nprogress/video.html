@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css" />
+    <title>JUNO_OKYO</title>
+    <link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo: Video Progress Bar</h1>
+
+        <video controls width="100%">
+            <source src="../detect-idm/J2TEAM.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </main>
+
+    <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
+    <script>
+        NProgress.configure({
+            minimum: 0.0,
+            showSpinner: false
+        })
+
+        const video = document.querySelector('video')
+
+        video.addEventListener('timeupdate', () => {
+            NProgress.set(video.currentTime / video.duration)
+        })
+    </script>
+</body>
+
+</html>
