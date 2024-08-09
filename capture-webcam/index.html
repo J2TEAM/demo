@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css" />
+    <title>JUNO_OKYO</title>
+    <style>
+        /* Demo by JUNO_OKYO */
+        canvas {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 240px;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo: Capture Webcam</h1>
+
+        <video id="video" width="640" height="480" autoplay></video>
+        <canvas width="640" height="480"></canvas>
+
+        <div style="margin-top: 10px;">
+            <button id="btn" style="margin-right: 10px;">Chụp ảnh</button>
+            <a href="#" download="webcam.png" id="download" hidden>Tải ảnh</a>
+        </div>
+
+        <script>
+            // Demo by JUNO_OKYO
+            const btn = document.getElementById('btn')
+            const video = document.getElementById('video')
+            const download = document.getElementById('download')
+            const canvas = document.querySelector('canvas')
+
+            async function streamWebcam() {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: true
+                })
+
+                video.srcObject = stream
+            }
+
+            streamWebcam()
+
+            btn.addEventListener('click', () => {
+                const ctx = canvas.getContext('2d')
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+                download.href = canvas.toDataURL('image/png')
+                download.hidden = false
+            })
+        </script>
+    </main>
+</body>
+
+</html>
