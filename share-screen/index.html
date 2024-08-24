@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css" />
+    <title>JUNO_OKYO</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
+    <style>
+        video {
+            max-width: 100%;
+            margin-top: 20px;
+            display: block;
+        }
+
+        #copyBtn {
+            text-decoration: none;
+            border: 1px solid #47fe87;
+            border-radius: 5px;
+            padding: 3px 8px;
+            background-color: #285236;
+            color: #fff;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo: Chia sẻ màn hình</h1>
+        <p>ID của bạn: <span id="myId">...</span> <a href="#" id="copyBtn">Sao chép</a></p>
+        <form action="#" method="post">
+            <input type="text" id="remoteId" placeholder="Nhập ID để kết nối" required autofocus>
+            <button type="submit" id="connectBtn">Kết nối</button>
+        </form>
+        <button id="shareScreenBtn" disabled hidden>Chia sẻ màn hình</button>
+        <video autoplay></video>
+    </main>
+
+    <script>
+        // Demo by JUNO_OKYO
+        let peer
+        let conn
+        let myStream
+        let currentCall
+
+        const myId = document.getElementById('myId')
+        const copyBtn = document.getElementById('copyBtn')
+        const remoteIdInput = document.getElementById('remoteId')
+        const connectBtn = document.getElementById('connectBtn')
+        const shareScreenBtn = document.getElementById('shareScreenBtn')
+        const video = document.querySelector('video')
+        const form = document.querySelector('form')
+
+        function initPeer() {
+            peer = new Peer()
+
+            peer.on('open', (id) => {
+                myId.textContent = id
+            })
+
+            peer.on('call', (call) => {
+                currentCall = call
+                call.answer()
+                call.on('stream', (remoteStream) => {
+                    video.srcObject = remoteStream
+                    updateScreenShareStatus(true)
+                })
+            })
+
+            peer.on('connection', handleIncomingConnection)
+            peer.on('disconnected', resetConnection)
+            peer.on('close', resetConnection)
+            peer.on('error', handlePeerError)
+        }
+
+        function handleConnectionAttempt(e) {
+            e.preventDefault()
+
+            if (conn) {
+                conn.close()
+                resetConnection()
+            } else {
+                if (peer.disconnected) {
+                    peer.reconnect()
+                }
+
+                conn = peer.connect(remoteIdInput.value)
+                conn.on('open', () => {
+                    updateConnectionStatus(true)
+                })
+                conn.on('error', (err) => {
+                    console.error('Lỗi kết nối:', err)
+                    resetConnection()
+                })
+                conn.on('data', handleDataReceived)
+            }
+        }
+
+        function handleIncomingConnection(connection) {
+            if (conn) {
+                connection.close()
+                return
+            }
+            conn = connection
+            updateConnectionStatus(true)
+            conn.on('close', () => {
+                resetConnection()
+            })
+            conn.on('data', handleDataReceived)
+        }
+
+        function handleDataReceived(data) {
+            if (data.type === 'stopScreenShare') {
+                stopScreenSharing()
+            }
+        }
+
+        async function handleScreenSharing() {
+            if (myStream) {
+                stopScreenSharing()
+                if (conn) {
+                    conn.send({ type: 'stopScreenShare' })
+                }
+            } else {
+                try {
+                    myStream = await navigator.mediaDevices.getDisplayMedia({ video: true })
+                    video.srcObject = myStream
+                    if (conn) {
+                        currentCall = peer.call(conn.peer, myStream)
+                    }
+                    updateScreenShareStatus(true)
+
+                    myStream.getVideoTracks()[0].onended = () => {
+                        stopScreenSharing()
+                        if (conn) {
+                            conn.send({ type: 'stopScreenShare' })
+                        }
+                    }
+                } catch (error) {
+                    console.error("Lỗi khi chia sẻ màn hình:", error)
+                }
+            }
+        }
+
+        function updateConnectionStatus(isConnected) {
+            connectBtn.textContent = isConnected ? 'Ngừng kết nối' : 'Kết nối'
+            shareScreenBtn.disabled = !isConnected
+            remoteIdInput.disabled = isConnected
+
+            if (isConnected) {
+                shareScreenBtn.hidden = false
+            }
+        }
+
+        function updateScreenShareStatus(isSharing) {
+            shareScreenBtn.textContent = isSharing ? 'Dừng chia sẻ' : 'Chia sẻ màn hình'
+        }
+
+        function resetConnection() {
+            if (conn) {
+                conn.close()
+            }
+            if (currentCall) {
+                currentCall.close()
+            }
+            conn = null
+            currentCall = null
+            updateConnectionStatus(false)
+            stopScreenSharing()
+        }
+
+        function stopScreenSharing() {
+            if (myStream) {
+                myStream.getTracks().forEach(track => track.stop())
+                myStream = null
+            }
+            video.srcObject = null
+            updateScreenShareStatus(false)
+        }
+
+        function handlePeerError(err) {
+            console.error('Lỗi Peer:', err)
+            // alert(`Đã xảy ra lỗi: ${err.type}`)
+            resetConnection()
+
+            if (err.type === 'network' || err.type === 'disconnected') {
+                initPeer()
+            }
+        }
+
+        copyBtn.addEventListener('click', (e) => {
+            e.preventDefault()
+            navigator.clipboard.writeText(myId.textContent)
+                .then(() => {
+                    copyBtn.textContent = 'Đã sao chép'
+                    setTimeout(() => {
+                        copyBtn.textContent = 'Sao chép'
+                    }, 3000)
+                })
+                .catch(err => console.error('Lỗi khi sao chép:', err))
+        })
+
+        form.addEventListener('submit', handleConnectionAttempt)
+
+        shareScreenBtn.addEventListener('click', handleScreenSharing)
+
+        initPeer()
+    </script>
+</body>
+
+</html>
