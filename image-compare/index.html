@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css" />
+    <title>JUNO_OKYO</title>
+    <link rel="stylesheet" href="https://unpkg.com/image-compare-viewer@1.6.2/dist/image-compare-viewer.min.css">
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo: So sánh hình ảnh</h1>
+
+        <div class="image-compare">
+            <img src="images/before-1.jpg" alt="JUNO_OKYO">
+            <img src="images/after-1.jpg" alt="JUNO_OKYO">
+        </div>
+
+        <div class="image-compare" style="margin-top: 30px;">
+            <img src="images/before-2.jpg" alt="JUNO_OKYO">
+            <img src="images/after-2.jpg" alt="JUNO_OKYO">
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/image-compare-viewer@1.6.2/dist/image-compare-viewer.min.js"></script>
+    <script>
+        // Demo by JUNO_OKYO
+        const viewers = document.querySelectorAll('.image-compare')
+        viewers.forEach(viewer => {
+            new ImageCompare(viewer).mount()
+        })
+    </script>
+</body>
+
+</html>
