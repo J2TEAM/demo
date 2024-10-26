@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css" />
+    <title>JUNO_OKYO</title>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo: Share API</h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, eos, quis vero enim similique cumque numquam temporibus maiores quo laborum magnam. Dicta exercitationem sapiente autem ducimus laborum voluptatum hic esse.
+        </p>
+
+        <button id="share-btn"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-share"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M8.7 10.7l6.6 -3.4" /><path d="M8.7 13.3l6.6 3.4" /></svg> Chia sẻ</button>
+    </main>
+
+    <script>
+        // demo by JUNO_OKYO
+        const shareBtn = document.getElementById('share-btn')
+
+        shareBtn.addEventListener('click', async () => {
+            try {
+                await navigator.share({
+                    title: 'JUNO_OKYO',
+                    text: 'Trang web này hay lắm!',
+                    url: 'https://www.junookyo.com'
+                })
+            } catch (error) {
+                // fallback method: pop-up?
+            }
+        })
+    </script>
+</body>
+
+</html>
