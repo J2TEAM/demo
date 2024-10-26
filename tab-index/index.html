@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUNO_OKYO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .login-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .label-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        label {
+            color: #666;
+            font-size: 14px;
+        }
+        .forgot-link {
+            font-size: 12px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        input::placeholder {
+            color: #999;
+        }
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #a29bfe;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .login-button:hover {
+            background-color: #8c7ae6;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form">
+        <form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" tabindex="1" placeholder="Enter your username" required autofocus>
+            </div>
+            <div class="form-group">
+                <div class="label-container">
+                    <label for="password">Password</label>
+                    <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+                <input type="password" id="password" tabindex="2" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="login-button">Log In</button>
+        </form>
+    </div>
+</body>
+</html>
