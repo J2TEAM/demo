@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css" />
+    <title>JUNO_OKYO</title>
+    <style>
+        .suggestions {
+            position: absolute;
+            background: #1a1d24;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            z-index: 1000;
+            display: none;
+            margin-top: 3px;
+            border: 1px solid #3f4451;
+        }
+
+        .suggestion-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #3f4451;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            background: #292e3a;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:before {
+            content: "📍";
+            margin-right: 10px;
+            font-size: 1.1em;
+            transition: transform 0.3s ease;
+        }
+
+        .suggestion-item:hover {
+            background: #3a4150;
+            color: #ffffff;
+            padding-left: 24px;
+        }
+
+        .suggestion-item:hover:before {
+            transform: scale(1.2);
+        }
+
+        .suggestion-item:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .suggestion-item:hover:after {
+            transform: scaleY(1);
+        }
+
+        .address-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        /* Tùy chỉnh thanh cuộn */
+        .suggestions::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .suggestions::-webkit-scrollbar-track {
+            background: #1a1d24;
+            border-radius: 8px;
+        }
+
+        .suggestions::-webkit-scrollbar-thumb {
+            background: #3f4451;
+            border-radius: 8px;
+        }
+
+        .suggestions::-webkit-scrollbar-thumb:hover {
+            background: #4f5565;
+        }
+
+        #phone {
+            filter: blur(5px)
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Demo: Goong Map API</h1>
+
+        <article>
+            <header>
+                <h3>Thông tin đặt hàng</h3>
+            </header>
+
+            <form id="checkoutForm">
+                <div class="grid">
+                    <div>
+                        <label for="fullName">Họ và tên</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="Nhập họ tên của bạn"
+                            autofocus value="Example">
+                    </div>
+                    <div>
+                        <label for="phone">Số điện thoại</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Nhập số điện thoại của bạn"
+                            value="0123456879">
+                    </div>
+                </div>
+
+                <div class="address-container">
+                    <label for="address">Địa chỉ</label>
+                    <input type="text" id="address" name="address" required placeholder="Nhập địa chỉ của bạn"
+                        autocomplete="off">
+                    <div id="suggestions" class="suggestions"></div>
+                </div>
+
+                <div class="grid">
+                    <div>
+                        <label for="city">Tỉnh/Thành phố</label>
+                        <input type="text" id="city" name="city" required placeholder="Nhập tỉnh/thành phố">
+                    </div>
+                    <div>
+                        <label for="district">Quận/Huyện</label>
+                        <input type="text" id="district" name="district" required placeholder="Nhập quận/huyện">
+                    </div>
+                    <div>
+                        <label for="ward">Phường/Xã</label>
+                        <input type="text" id="ward" name="ward" required placeholder="Nhập phường/xã">
+                    </div>
+                </div>
+
+                <button type="submit">Đặt hàng</button>
+            </form>
+        </article>
+    </main>
+
+    <script>
+        const apiKey = 'YOUR_API_KEY'; // https://account.goong.io/keys
+        const addressInput = document.getElementById('address');
+        const suggestionsContainer = document.getElementById('suggestions');
+        const cityInput = document.getElementById('city');
+        const districtInput = document.getElementById('district');
+        const wardInput = document.getElementById('ward');
+        let sessionToken = crypto.randomUUID();
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        const debouncedSearch = debounce((query) => {
+            if (query.length < 2) {
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+
+            fetch(`https://rsapi.goong.io/Place/AutoComplete?api_key=${apiKey}&input=${encodeURIComponent(query)}&sessiontoken=${sessionToken}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'OK') {
+                        suggestionsContainer.innerHTML = '';
+                        suggestionsContainer.style.display = 'block';
+
+                        data.predictions.forEach(prediction => {
+                            const div = document.createElement('div');
+                            div.className = 'suggestion-item';
+                            div.textContent = prediction.description;
+                            div.addEventListener('click', () => {
+                                addressInput.value = prediction.description;
+                                suggestionsContainer.style.display = 'none';
+
+                                // Tự động điền các trường địa chỉ từ compound
+                                if (prediction.compound) {
+                                    cityInput.value = prediction.compound.province || '';
+                                    districtInput.value = prediction.compound.district || '';
+                                    wardInput.value = prediction.compound.commune || '';
+                                }
+                            });
+                            suggestionsContainer.appendChild(div);
+                        });
+                    }
+                })
+                .catch(error => console.error('Lỗi:', error));
+        }, 300);
+
+        addressInput.addEventListener('input', (e) => debouncedSearch(e.target.value));
+
+        document.addEventListener('click', function (e) {
+            if (!suggestionsContainer.contains(e.target) && e.target !== addressInput) {
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+
+        document.getElementById('checkoutForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            sessionToken = crypto.randomUUID();
+            alert('Theo dõi mình để xem thêm các video công nghệ nhé!');
+        });
+    </script>
+</body>
+
+</html>
